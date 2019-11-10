@@ -3,10 +3,18 @@
 	"ignore": "test",
 	"package": [
 		{
+			"path": "get",
+			"revision": ""
+		},
+		{
 			"checksumSHA1": "eYEQ+tEp6RtSU6m69Eb+S945kkY=",
 			"path": "github.com/cpuguy83/go-md2man",
 			"revision": "eda4fa589184806b8720ea3b9146491209877a10",
 			"revisionTime": "2019-10-10T23:27:47Z"
+		},
+		{
+			"path": "github.com/cpuguy83/go-md2man/v2/md2man",
+			"revision": "eda4fa589184806b8720ea3b9146491209877a10"
 		},
 		{
 			"checksumSHA1": "Aulh7C5SVOA4Jzt5eHNH6197Mbk=",
@@ -27,8 +35,16 @@
 			"revisionTime": "2019-11-09T06:47:18Z"
 		},
 		{
+			"path": "github.com/urfave/cli.v2",
+			"revision": ""
+		},
+		{
 			"path": "github.com/urfave/cli/v2",
 			"revision": "05874240edcf0f3f618bbd0bb3b3a86e10748b83"
+		},
+		{
+			"path": "go",
+			"revision": ""
 		},
 		{
 			"checksumSHA1": "3MIBhaOhlaGUd/C7WtWDnS3JWSc=",

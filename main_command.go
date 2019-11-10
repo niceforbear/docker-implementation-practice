@@ -12,7 +12,7 @@ var runCommand = cli.Command{
 	Name:  "run",
 	Usage: `Create a container with ns and cgroups limit mydocker run -ti [cmd]`,
 	Flags: []cli.Flag{
-		cli.BoolFlag{
+		{
 			Name:  "ti",
 			Usage: "enable tty",
 		},
