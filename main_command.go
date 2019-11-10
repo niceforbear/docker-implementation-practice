@@ -7,16 +7,16 @@ import (
 	"gopkg.in/urfave/cli.v2"
 )
 
-var defaultFlags = cli.BoolFlag{
-	Name:  "ti",
-	Usage: "enable tty",
-}
-
 // 作用：解析参数
 var runCommand = cli.Command{
 	Name:  "run",
 	Usage: `Create a container with ns and cgroups limit mydocker run -ti [cmd]`,
-	Flags: []cli.Flag{defaultFlags},
+	Flags: []cli.Flag{
+		&cli.BoolFlag{
+			Name:  "ti",
+			Usage: "enable tty",
+		},
+	},
 
 	/*
 		1. 判断参数是否包含 cmd， 获取用户指定的 cmd。
