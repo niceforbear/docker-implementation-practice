@@ -16,7 +16,7 @@ var defaultFlags = cli.BoolFlag{
 var runCommand = cli.Command{
 	Name:  "run",
 	Usage: `Create a container with ns and cgroups limit mydocker run -ti [cmd]`,
-	Flags: []cli.Flag{defaultFlags},
+	Flags: []cli.BoolFlag{defaultFlags},
 
 	/*
 		1. 判断参数是否包含 cmd， 获取用户指定的 cmd。
