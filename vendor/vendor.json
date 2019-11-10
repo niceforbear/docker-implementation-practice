@@ -9,8 +9,16 @@
 			"revisionTime": "2019-10-10T23:27:47Z"
 		},
 		{
-			"path": "github.com/cpuguy83/go-md2man/v2/md2man",
-			"revision": "eda4fa589184806b8720ea3b9146491209877a10"
+			"checksumSHA1": "Aulh7C5SVOA4Jzt5eHNH6197Mbk=",
+			"path": "github.com/konsorten/go-windows-terminal-sequences",
+			"revision": "f55edac94c9bbba5d6182a4be46d86a2c9b5b50e",
+			"revisionTime": "2019-02-26T22:47:05Z"
+		},
+		{
+			"checksumSHA1": "a+HW4KfxlTA1ExAUrW8w6EKYoxM=",
+			"path": "github.com/sirupsen/logrus",
+			"revision": "67a7fdcf741f4d5cee82cb9800994ccfd4393ad0",
+			"revisionTime": "2019-10-26T11:39:18Z"
 		},
 		{
 			"checksumSHA1": "aaOk+ChpKtujDUXFlluqYftDsWM=",
@@ -21,7 +29,13 @@
 		{
 			"path": "github.com/urfave/cli/v2",
 			"revision": "05874240edcf0f3f618bbd0bb3b3a86e10748b83"
+		},
+		{
+			"checksumSHA1": "3MIBhaOhlaGUd/C7WtWDnS3JWSc=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "c1f44814a5cd81a6d1cb589ef1e528bc5d305e07",
+			"revisionTime": "2019-11-05T10:44:00Z"
 		}
 	],
-	"rootPath": "code.aibee.cn/ykliu/my-docker"
+	"rootPath": "github.com/niceforbear/docker-implementation-practice"
 }

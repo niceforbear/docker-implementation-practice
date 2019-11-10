@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/niceforbear/docker-implementation-practice/container"
-	"github.com/prometheus/common/log"
+	"github.com/sirupsen/logrus"
 	"os"
 )
 
@@ -11,12 +11,12 @@ func Run(tty bool, command string) {
 	parent := container.NewParentProcess(tty, command)
 
 	if err := parent.Start(); err != nil {
-		log.Error(err)
+		logrus.Error(err)
 	}
 
 	err := parent.Wait()
 	if err != nil {
-		log.Error(err)
+		logrus.Error(err)
 	}
 
 	os.Exit(-1)
