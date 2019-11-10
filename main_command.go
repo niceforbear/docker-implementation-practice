@@ -7,7 +7,7 @@ import (
 	"gopkg.in/urfave/cli.v2"
 )
 
-var defaultFlags = cli.GenericFlag{
+var defaultFlags = cli.BoolFlag{
 	Name:  "ti",
 	Usage: "enable tty",
 }
