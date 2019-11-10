@@ -21,9 +21,9 @@ func main() {
 	app.Name = "mydocker"
 	app.Usage = usage
 
-	var commands []cli.Command
-	commands = append(commands, initCommand)
-	commands = append(commands, runCommand)
+	var commands []*cli.Command
+	commands = append(commands, &initCommand)
+	commands = append(commands, &runCommand)
 	app.Commands = commands
 
 	// 初始化日志配置

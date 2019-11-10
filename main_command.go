@@ -7,16 +7,17 @@ import (
 	"github.com/urfave/cli"
 )
 
+var defaultFlags = cli.Flag{
+	Name:  "ti",
+	Usage: "enable tty",
+}
+
 // 作用：解析参数
 var runCommand = cli.Command{
 	Name:  "run",
 	Usage: `Create a container with ns and cgroups limit mydocker run -ti [cmd]`,
-	Flags: []cli.Flag{
-		{
-			Name:  "ti",
-			Usage: "enable tty",
-		},
-	},
+	Flags: []cli.Flag{defaultFlags},
+
 	/*
 		1. 判断参数是否包含 cmd， 获取用户指定的 cmd。
 		2. 调用 Run function 去准备启动容器。
