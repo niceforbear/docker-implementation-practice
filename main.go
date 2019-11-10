@@ -17,7 +17,7 @@ func main() {
 	//setupNetNs()
 	//setupCgroupMemory()
 
-	app := cli.NewApp()
+	app := cli.App{}
 	app.Name = "mydocker"
 	app.Usage = usage
 
