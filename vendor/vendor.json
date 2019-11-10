@@ -51,6 +51,12 @@
 			"path": "golang.org/x/sys/unix",
 			"revision": "c1f44814a5cd81a6d1cb589ef1e528bc5d305e07",
 			"revisionTime": "2019-11-05T10:44:00Z"
+		},
+		{
+			"checksumSHA1": "XmPwgJ4mrAWG77SWUyas2qBkGfw=",
+			"path": "gopkg.in/urfave/cli.v2",
+			"revision": "b626059537179114d912b95f3679eb2fb87e73f4",
+			"revisionTime": "2019-08-06T20:17:27Z"
 		}
 	],
 	"rootPath": "github.com/niceforbear/docker-implementation-practice"

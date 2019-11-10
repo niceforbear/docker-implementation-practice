@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/niceforbear/docker-implementation-practice/container"
 	log "github.com/sirupsen/logrus"
-	"github.com/urfave/cli"
+	"gopkg.in/urfave/cli.v2"
 )
 
 var defaultFlags = cli.BoolFlag{
