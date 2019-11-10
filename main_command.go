@@ -7,7 +7,7 @@ import (
 	"github.com/urfave/cli"
 )
 
-var defaultFlags = cli.Flag{
+var defaultFlags = cli.BoolFlag{
 	Name:  "ti",
 	Usage: "enable tty",
 }
