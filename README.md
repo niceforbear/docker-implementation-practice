@@ -6,10 +6,11 @@
 
 ### Basics
 
-0. `main.go`
 1. `namespace.go`
 2. `cgroups.go`
 3. `union_file_system.go`
 
 ### Construct Container
 
+1. `main.go`
+2. 通过 `container` & `cgroups` 初步构建容器
