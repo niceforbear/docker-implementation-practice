@@ -10,7 +10,8 @@
 2. `cgroups.go`
 3. `union_file_system.go`
 
-### Construct Container
+### Build Container
 
 1. `main.go`
 2. 通过 `container` & `cgroups` 初步构建容器
+3. 实现镜像。参考`IMAGE.md`
