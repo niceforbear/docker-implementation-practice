@@ -5,7 +5,9 @@ import (
 	"github.com/niceforbear/docker-implementation-practice/cgroups/subsystems"
 	"github.com/niceforbear/docker-implementation-practice/container"
 	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	"os"
+	"strings"
 )
 
 // 作用：容器内进程调用自己
@@ -59,6 +61,40 @@ func RunV3(tty bool, comArray []string) {
 
 	sendInitCommand(comArray, writePipe)
 	parent.Wait()
+	os.Exit(0)
+}
+
+func RunV4(tty bool, comArray []string) {
+	parent, writePipe := container.NewParentProcessV3(tty)
+	if parent == nil {
+		log.Errorf("New parent process error")
+		return
+	}
+	if err := parent.Start(); err != nil {
+		log.Error(err)
+	}
+	sendInitCommand(comArray, writePipe)
+	parent.Wait()
+	mntURL := "/root/mnt/"
+	rootURL := "/root/"
+	container.DeleteWorkSpace(rootURL, mntURL)
+	os.Exit(0)
+}
+
+func RunV5(tty bool, comArray []string, volume string) {
+	parent, writePipe := container.NewParentProcessV4(tty, volume)
+	if parent == nil {
+		log.Errorf("New parent process error")
+		return
+	}
+	if err := parent.Start(); err != nil {
+		log.Error(err)
+	}
+	sendInitCommand(comArray, writePipe)
+	parent.Wait()
+	mntURL := "/root/mnt"
+	rootURL := "/root"
+	container.DeleteWorkSpaceV2(rootURL, mntURL, volume)
 	os.Exit(0)
 }
 

@@ -51,3 +51,46 @@ var initCommand = cli.Command{
 		return err
 	},
 }
+
+var runCommandV2 = cli.Command{
+	Name: "run",
+	Usage: `Create a container with namespace and cgroups limit
+			mydocker run -ti [command]`,
+	Flags: []cli.Flag{
+		&cli.BoolFlag{
+			Name:  "ti",
+			Usage: "enable tty",
+		},
+		&cli.StringFlag{
+			Name:  "v",
+			Usage: "volume",
+		},
+	},
+	Action: func(context *cli.Context) error {
+		if context.Args().Len() < 1 {
+			return fmt.Errorf("Missing container command")
+		}
+		var cmdArray []string
+		for _, arg := range context.Args().Slice() {
+			cmdArray = append(cmdArray, arg)
+		}
+		tty := context.Bool("ti")
+		volume := context.String("v")
+		RunV5(tty, cmdArray, volume)
+		return nil
+	},
+}
+
+var commitCommand = cli.Command{
+	Name:  "commit",
+	Usage: "commit a container into image",
+	Action: func(context *cli.Context) error {
+		if context.Args().Len() < 1 {
+			return fmt.Errorf("Missing container name")
+		}
+		imageName := context.Args().Get(0)
+		//commitContainer(containerName)
+		commitContainer(imageName)
+		return nil
+	},
+}
