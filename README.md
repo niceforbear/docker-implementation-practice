@@ -14,4 +14,4 @@
 
 1. `main.go`
 2. 通过 `container` & `cgroups` 初步构建容器
-3. 实现镜像。参考`IMAGE.md`
+3. 实现镜像。参考`IMAGE.md`。
