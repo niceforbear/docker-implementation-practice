@@ -25,6 +25,8 @@ func main() {
 	commands = append(commands, &initCommand)
 	commands = append(commands, &runCommand)
 	commands = append(commands, &commitCommand)
+	commands = append(commands, &listCommand)
+	commands = append(commands, &logCommand)
 	app.Commands = commands
 
 	// 初始化日志配置
