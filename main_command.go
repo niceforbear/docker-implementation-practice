@@ -81,20 +81,6 @@ var runCommandV2 = cli.Command{
 	},
 }
 
-var commitCommand = cli.Command{
-	Name:  "commit",
-	Usage: "commit a container into image",
-	Action: func(context *cli.Context) error {
-		if context.Args().Len() < 1 {
-			return fmt.Errorf("Missing container name")
-		}
-		imageName := context.Args().Get(0)
-		//commitContainer(containerName)
-		commitContainer(imageName)
-		return nil
-	},
-}
-
 var runCommandV3 = cli.Command{
 	Name: "run",
 	Usage: `Create a container with namespace and cgroups limit
@@ -201,6 +187,75 @@ var runCommandV4 = cli.Command{
 	},
 }
 
+var runCommandV5 = cli.Command{
+	Name: "run",
+	Usage: `Create a container with namespace and cgroups limit ie: mydocker run -ti [image] [command]`,
+	Flags: []cli.Flag{
+		cli.BoolFlag{
+			Name:  "ti",
+			Usage: "enable tty",
+		},
+		cli.BoolFlag{
+			Name:  "d",
+			Usage: "detach container",
+		},
+		cli.StringFlag{
+			Name:  "m",
+			Usage: "memory limit",
+		},
+		cli.StringFlag{
+			Name:  "cpushare",
+			Usage: "cpushare limit",
+		},
+		cli.StringFlag{
+			Name:  "cpuset",
+			Usage: "cpuset limit",
+		},
+		cli.StringFlag{
+			Name:  "name",
+			Usage: "container name",
+		},
+		cli.StringFlag{
+			Name:  "v",
+			Usage: "volume",
+		},
+		cli.StringSliceFlag{
+			Name: "e",
+			Usage: "set environment",
+		},
+	},
+	Action: func(context *cli.Context) error {
+		if context.Args().Len() < 1 {
+			return fmt.Errorf("Missing container command")
+		}
+		var cmdArray []string
+		for _, arg := range context.Args().Slice() {
+			cmdArray = append(cmdArray, arg)
+		}
+
+		//get image name
+		imageName := cmdArray[0]
+		cmdArray = cmdArray[1:]
+
+		createTty := context.Bool("ti")
+		detach := context.Bool("d")
+
+		if createTty && detach {
+			return fmt.Errorf("ti and d paramter can not both provided")
+		}
+		resConf := &subsystems.ResourceConfig{
+			MemoryLimit: context.String("m"),
+			CpuSet:      context.String("cpuset"),
+			CpuShare:    context.String("cpushare"),
+		}
+		log.Infof("createTty %v", createTty)
+		containerName := context.String("name")
+		volume := context.String("v")
+		RunV8(createTty, cmdArray, resConf, containerName, volume, imageName)
+		return nil
+	},
+}
+
 var listCommand = cli.Command{
 	Name:  "ps",
 	Usage: "list all the containers",
@@ -242,6 +297,153 @@ var execCommand = cli.Command{
 			commandArray = append(commandArray, arg)
 		}
 		ExecContainer(containerName, commandArray)
+		return nil
+	},
+}
+
+var execCommandV2 = cli.Command{
+	Name: "exec",
+	Usage: "exec a command into container",
+	Action: func(context *cli.Context) error {
+		//This is for callback
+		if os.Getenv(ENV_EXEC_PID) != "" {
+			log.Infof("pid callback pid %s", os.Getgid())
+			return nil
+		}
+
+		if context.Args().Len() < 2 {
+			return fmt.Errorf("Missing container name or command")
+		}
+		containerName := context.Args().Get(0)
+		var commandArray []string
+		for _, arg := range context.Args().Tail() {
+			commandArray = append(commandArray, arg)
+		}
+		ExecContainerV2(containerName, commandArray)
+		return nil
+	},
+}
+
+var stopCommand = cli.Command{
+	Name: "stop",
+	Usage: "stop a container",
+	Action: func(context *cli.Context) error {
+		if context.Args().Len() < 1 {
+			return fmt.Errorf("Missing container name")
+		}
+		containerName := context.Args().Get(0)
+		stopContainer(containerName)
+		return nil
+	},
+}
+
+var removeCommand = cli.Command{
+	Name: "rm",
+	Usage: "remove unused containers",
+	Action: func(context *cli.Context) error {
+		if context.Args().Len() < 1 {
+			return fmt.Errorf("Missing container name")
+		}
+		containerName := context.Args().Get(0)
+		removeContainer(containerName)
+		return nil
+	},
+}
+
+var commitCommand = cli.Command{
+	Name:  "commit",
+	Usage: "commit a container into image",
+	Action: func(context *cli.Context) error {
+		if context.Args().Len() < 1 {
+			return fmt.Errorf("Missing container name")
+		}
+		imageName := context.Args().Get(0)
+		//commitContainer(containerName)
+		commitContainer(imageName)
+		return nil
+	},
+}
+
+var commitCommandV2 = cli.Command{
+	Name:  "commit",
+	Usage: "commit a container into image",
+	Action: func(context *cli.Context) error {
+		if context.Args().Len() < 2 {
+			return fmt.Errorf("Missing container name and image name")
+		}
+		containerName := context.Args().Get(0)
+		imageName := context.Args().Get(1)
+		commitContainerV2(containerName, imageName)
+		return nil
+	},
+}
+
+var runCommandV6 = cli.Command{
+	Name: "run",
+	Usage: `Create a container with namespace and cgroups limit ie: mydocker run -ti [image] [command]`,
+	Flags: []cli.Flag{
+		cli.BoolFlag{
+			Name:  "ti",
+			Usage: "enable tty",
+		},
+		cli.BoolFlag{
+			Name:  "d",
+			Usage: "detach container",
+		},
+		cli.StringFlag{
+			Name:  "m",
+			Usage: "memory limit",
+		},
+		cli.StringFlag{
+			Name:  "cpushare",
+			Usage: "cpushare limit",
+		},
+		cli.StringFlag{
+			Name:  "cpuset",
+			Usage: "cpuset limit",
+		},
+		cli.StringFlag{
+			Name:  "name",
+			Usage: "container name",
+		},
+		cli.StringFlag{
+			Name:  "v",
+			Usage: "volume",
+		},
+		cli.StringSliceFlag{
+			Name: "e",
+			Usage: "set environment",
+		},
+	},
+	Action: func(context *cli.Context) error {
+		if context.Args().Len() < 1 {
+			return fmt.Errorf("Missing container command")
+		}
+		var cmdArray []string
+		for _, arg := range context.Args().Slice() {
+			cmdArray = append(cmdArray, arg)
+		}
+
+		//get image name
+		imageName := cmdArray[0]
+		cmdArray = cmdArray[1:]
+
+		createTty := context.Bool("ti")
+		detach := context.Bool("d")
+
+		if createTty && detach {
+			return fmt.Errorf("ti and d paramter can not both provided")
+		}
+		resConf := &subsystems.ResourceConfig{
+			MemoryLimit: context.String("m"),
+			CpuSet:      context.String("cpuset"),
+			CpuShare:    context.String("cpushare"),
+		}
+		log.Infof("createTty %v", createTty)
+		containerName := context.String("name")
+		volume := context.String("v")
+		envSlice := context.StringSlice("e")
+		RunV9(createTty, cmdArray, resConf, containerName, volume, imageName, envSlice)
 		return nil
 	},
 }

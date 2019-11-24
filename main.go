@@ -23,10 +23,13 @@ func main() {
 
 	var commands []*cli.Command
 	commands = append(commands, &initCommand)
-	commands = append(commands, &runCommand)
+	commands = append(commands, &runCommandV6)
 	commands = append(commands, &commitCommand)
 	commands = append(commands, &listCommand)
 	commands = append(commands, &logCommand)
+	commands = append(commands, &execCommand)
+	commands = append(commands, &stopCommand)
+	commands = append(commands, &removeCommand)
 	app.Commands = commands
 
 	// 初始化日志配置
